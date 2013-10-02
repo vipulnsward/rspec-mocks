@@ -28,6 +28,7 @@ Enhancements:
   ported from `rspec-fire` (Xavier Shay).
 * `as_null_object` on a verifying double only responds to defined methods
   (Xavier Shay).
+* Provide `const_double` as an alias to `class_double` (Xavier Shay).
 * Improved performance of double creation, particularly those with many
   attributes. (Xavier Shay)
 * Default value of `transfer_nested_constants` option for constant stubbing can

@@ -3,6 +3,7 @@ require 'spec_helper'
 class LoadedClass
   M = :m
   N = :n
+  INSTANCE = LoadedClass.new
 
   def defined_instance_method; end
   def self.defined_class_method; end
@@ -202,6 +203,22 @@ module RSpec
           end
         end
       end
+
+      describe 'const doubles' do
+        it 'replaces a constant and verifies instances methods' do
+          o = const_double("LoadedClass::INSTANCE").as_stubbed_const
+
+          expect(LoadedClass::INSTANCE).to eq(o)
+
+          prevents { expect(o).to receive(:undefined_instance_method) }
+          prevents { expect(o).to receive(:defined_class_method) }
+          prevents { o.defined_instance_method }
+
+          expect(o).to receive(:defined_instance_method)
+          o.defined_instance_method
+        end
+      end
+
 
       describe 'when verify_doubled_constant_names config option is set' do
         include_context "with isolated configuration"

@@ -54,10 +54,13 @@ module RSpec
       # Constructs a test double against a specific class. If the given class
       # name has been loaded, only class methods defined on the class are
       # allowed to be stubbed. In all other ways it behaves like a
-      # [double](double).
+      # [double](double). This also works for stubbing constants, and is
+      # aliased as `const_double`..
       def class_double(doubled_class, *args)
         declare_verifying_double(ClassVerifyingDouble, doubled_class, *args)
       end
+
+      alias_method :const_double, :class_double
 
       # Disables warning messages about expectations being set on nil.
       #

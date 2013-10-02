@@ -1,11 +1,12 @@
 Feature: Using a class double
 
-  `class_double` is provided as a complement to `instance_double`, with the
-  difference that it verifies class methods on the given class rather than
-  instance methods.
+  `class_double` and `const_double` are provided as complements to
+  `instance_double`, with the difference that they verify instance methods on
+  the actual object assigned to the constant rather than the instance methods
+  of the given class. For classes, this is equivalent to the class methods.
 
   In addition, it also provides a convenience method `as_stubbed_const` to
-  replace concrete classes with the defined double. See [mutating
+  replace concrete classes or constants with the defined double. See [mutating
   constants](../mutating-constants) for more details.
 
   Note: `class_double` can be used for modules as well. We chose to stick with
