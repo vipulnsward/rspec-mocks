@@ -65,6 +65,16 @@ describe "a double declaration with a block handed to:" do
       obj.stub(:foo).with(1, 2, &lambda { 'bar' })
       expect(obj.foo(1, 2)).to eq('bar')
     end
+
+    it 'warns of deprecation when provided block but no arguments' do
+      expect(RSpec).to receive(:deprecate) do |message, opts|
+        puts message
+        expect(message).to eq "Using the return value of a `with` block to validate passed arguments rather than as an implementation"
+      end
+      obj = Object.new
+      obj.stub(:foo).with {|x| 'baz' }.and_return('bar')
+      expect(obj.foo(1)).to eq('bar')
+    end
   end
 
   %w[once twice ordered and_return].each do |method|
